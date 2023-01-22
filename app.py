@@ -78,7 +78,7 @@ def classes():
     class_data_file_path = load_config_file("*classData.csv")
     
     return csv_data_to_json_response(class_data_file_path,
-            sort_function=lambda class_type: int(class_type['Display Order']),
+            sort_function=lambda class_type: class_type['Display Order'],
             success_message="class data loaded.",
             file_corrupt_message="class data is corrupted or not in the correct format.",
             file_not_found_message="could not find class data. check '" + CONFIG_PATH + "' for class data information."
@@ -99,6 +99,7 @@ def runs():
     timing_data_file_path = load_eventdata_file("*timingData.csv")
     
     return csv_data_to_json_response(timing_data_file_path,
+            sort_function=lambda run: run["run_number"],
             success_message="timing data loaded.",
             file_corrupt_message="timing data is corrupted or not in the correct format.",
             file_not_found_message="could not find timing data. Check '" + EVENTDATA_PATH + "' for timing data information."
