@@ -1,6 +1,6 @@
 import glob
 import os
-import csv
+import pandas
 from flask import Flask
 from config import *
 
@@ -22,12 +22,7 @@ def load_eventdata_file(glob_file_path):
     return load_latest_file(f"{EVENTDATA_PATH}{os.sep}{glob_file_path}")
 
 def read_csv_to_dict(file_path):
-    data = []
-    with open(file_path, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for record in reader:
-            data.append(record)
-    return data
+    return pandas.read_csv(file_path, keep_default_na=False).to_dict(orient="records")
 
 def normalize_keys(data):
     normalized_data = {}
