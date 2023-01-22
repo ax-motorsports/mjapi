@@ -1,0 +1,29 @@
+name: Package Release
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11.1"]
+        arch: ["win32", "amd64", "arm64"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        run: |
+          wget "https://www.python.org/ftp/python/${{ matrix.python-version }}/python-${{ matrix.python-version }}-embed-${{ matrix.arch }}.zip" -O python.zip
+          unzip python.zip
+          rm python.zip
+
+      - name: Package Release
+        run: |
+          mkdir -p output
+          zip -r release-py${{ matrix.python-version }}-${{ matrix.arch }}.zip .
+
+      - name: Archive release
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: output/release-py${{ matrix.python-version }}-${{ matrix.arch }}.zip
