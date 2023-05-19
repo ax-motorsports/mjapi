@@ -115,3 +115,6 @@ def runs():
             file_corrupt_message="timing data is corrupted or not in the correct format.",
             file_not_found_message="could not find timing data. Check '" + EVENTDATA_PATH + "' for timing data information."
             )
+
+if __name__ == "__main__":
+    app.run()
