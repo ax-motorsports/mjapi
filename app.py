@@ -6,7 +6,7 @@ from flask_caching import Cache
 from config import *
 
 config = {
-    "DEBUG": True,          # some Flask specific configs
+    "DEBUG": DEBUG,          # some Flask specific configs
     "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
     "CACHE_DEFAULT_TIMEOUT": 300
 }
@@ -117,4 +117,4 @@ def runs():
             )
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")
